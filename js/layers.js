@@ -191,11 +191,13 @@ addLayer("m", {
     },
     clickables: {
         11: {
-            canClick() {if(player.m.flameMagic.gte(150))return true},
-            display() {return "Fireball"},
+            canClick() {if(player.m.flameMagic.gte(80))return true},
+            display() {
+                return "Fireball"
+            },
             onClick() {
-                if(player.m.flameMagic.gte(150)) player.points = player.points.mul(1.05)
-                 player.m.flameMagic = player.m.flameMagic.sub(150)
+                if(player.m.flameMagic.gte(80)) player.points = player.points.mul(1.05)
+                 player.m.flameMagic = player.m.flameMagic.sub(80)
             }
            
            
