@@ -193,11 +193,11 @@ addLayer("m", {
         11: {
             canClick() {if(player.m.flameMagic.gte(80))return true},
             display() {
-                return "Fireball"
+                return "Fireball - Spend 20 Flame Magic to multiply your current amount of basic keys by 1.05" 
             },
             onClick() {
-                if(player.m.flameMagic.gte(80)) player.points = player.points.mul(1.05)
-                 player.m.flameMagic = player.m.flameMagic.sub(80)
+                if(player.m.flameMagic.gte(20)) player.points = player.points.mul(1.05)
+                 player.m.flameMagic = player.m.flameMagic.sub(20)
             }
            
            
