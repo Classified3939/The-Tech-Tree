@@ -191,7 +191,7 @@ addLayer("m", {
     },
     clickables: {
         11: {
-            canClick() {if(player.m.flameMagic.gte(80))return true},
+            canClick() {if(player.m.flameMagic.gte(20))return true},
             display() {
                 return "Fireball - Spend 20 Flame Magic to multiply your current amount of basic keys by 1.05" 
             },
