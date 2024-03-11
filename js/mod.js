@@ -13,12 +13,12 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
+	num: "0.2",
 	name: "Unfinished Keys",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.1.1</h3><br>
+	<h3>v0.2</h3><br>
 		- Added magic mastery.<br>
 		- Added earth magic ability.`
 
