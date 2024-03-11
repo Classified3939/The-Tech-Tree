@@ -53,7 +53,7 @@ function getPointGen() {
 	if (hasMilestone('l', 1)) gain = gain.times(1.15)
 	if (inChallenge('l', 11)) gain = gain.times(0.1)
 	if (hasChallenge('l', 11)) gain = gain.pow(1.2)
-	
+	gain = gain.mul(player.m.magicMastery.pow(0.8).add(1))
 	
     return gain
 }

@@ -20,6 +20,7 @@ addLayer("p", {
         if (hasUpgrade('l', 13)) mult = mult.times(upgradeEffect('l', 13))
         if (hasMilestone('l', 1)) mult = mult.times(1.15)
         if (inChallenge('l', 11)) mult = mult.times(0.1)
+        mult = mult.times(player.m.magicMastery.pow(0.3).add(1))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -163,7 +164,8 @@ addLayer("m", {
         points: new Decimal(0),
         flameMagic: new Decimal(0),
         earthMagic: new Decimal(0),
-        magicTime: new Decimal(0)
+        magicTime: new Decimal(0),
+        magicMastery: new Decimal(0)
         
     }},
     
@@ -191,18 +193,28 @@ addLayer("m", {
     },
     clickables: {
         11: {
-            canClick() {if(player.m.flameMagic.gte(20))return true},
+            canClick() {return player.m.flameMagic.gte(20)},
             display() {
                 return "Fireball - Spend 20 Flame Magic to multiply your current amount of basic keys by 1.05" 
             },
             onClick() {
-                if(player.m.flameMagic.gte(20)) player.points = player.points.mul(1.05)
-                 player.m.flameMagic = player.m.flameMagic.sub(20)
+                 player.points = player.points.mul(1.05);
+                 player.m.flameMagic = player.m.flameMagic.sub(20);
+                 player.m.magicMastery = player.m.magicMastery.add(1);
             }
-           
-           
+           },
+        12: {
+            canClick() {return player.m.earthMagic.gte(15)},
+            display() {
+                return "Create Living Keys - Spend 15 Earth Magic to create living keys based on Magic Mastery"
+            },
+            onClick() {
+                player.l.points = player.l.points.add(player.m.magicMastery);
+                player.m.earthMagic = player.m.earthMagic.sub(15);
+                player.m.magicMastery = player.m.magicMastery.add(1);
+            }
         }
-        
+   
     },
     
  
@@ -214,12 +226,20 @@ addLayer("m", {
         "clickables",
         "blank",
         ["display-text",
-            function() { return 'You have ' + format(player.m.flameMagic) + ' Flame Magic' },
-            { "color": "darkorange", "font-size": "24px", "font-family": "Libre Baskerville" }],
-        "blank", 
+        function() { return 'You have ' + format(player.m.flameMagic) + ' Flame Magic' },
+        { "color": "darkorange", "font-size": "24px", "font-family": "Libre Baskerville" }], 
         ["display-text",
         function() { return 'You have ' + format(player.m.earthMagic) + ' Earth Magic' },
         { "color": "brown", "font-size": "24px", "font-family": "Libre Baskerville" }],
+        ["display-text",
+        function() { return 'You have ' + format(player.m.magicMastery) + ' Magic Mastery ' },
+        { "color": "purple", "font-size": "24px", "font-family": "Whisper, cursive;" }],
+        ["display-text",
+        function() { return 'Your magic mastery boosts Basic Key Gain by ' + format(player.m.magicMastery.pow(0.8).add(1)) + 'x' },
+        { "color": "white", "font-size": "17px", "font-family": "Libre Baskerville" }], 
+        ["display-text",
+        function() { return 'Your magic mastery also boosts Compressed Key Gain by ' + format(player.m.magicMastery.pow(0.3).add(1)) + 'x' },
+        { "color": "white", "font-size": "17px", "font-family": "Libre Baskerville" }], 
         "blank",
         ["toggle", ["c", "beep"]],
         "milestones",
