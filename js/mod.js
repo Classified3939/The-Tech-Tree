@@ -18,9 +18,9 @@ let VERSION = {
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.1</h3><br>
-		- Added two working layers.<br>
-		- Added magic, unfinished.`
+	<h3>v0.1.1</h3><br>
+		- Added magic mastery.<br>
+		- Added earth magic ability.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
