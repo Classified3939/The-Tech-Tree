@@ -13,6 +13,7 @@ addLayer("p", {
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.35, // Prestige currency exponent
+   
     gainMult() {
         let mult = new Decimal(1)
         if (hasUpgrade('p', 13)) mult = mult.times(upgradeEffect('p', 13))
@@ -94,7 +95,10 @@ addLayer("l", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.28, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
-        mult = new Decimal(1)
+        let mult = new Decimal(1)
+        if (hasChallenge('l', 12)) mult = mult.times(1.45)
+        if (hasUpgrade('l', 15)) mult = mult.times(upgradeEffect('l', 15))
+        if (hasChallenge('l', 12)) mult = mult.pow(1.15)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -128,8 +132,25 @@ addLayer("l", {
                 return player.l.points.add(1).pow(0.4)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect  
-        },    
-        
+        },  
+        14: {
+            title: "Basic Life",
+            description: "Increase your basic key gain based on living keys.",
+            cost: new Decimal(120),
+            effect() {
+                return player.l.points.add(1).pow(0.08)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },  
+        15: {
+            title: "Double Life",
+            description: "Increase your living key gain based on living keys.",
+            cost: new Decimal(1000000),
+            effect() {
+                return player.l.points.add(1).pow(0.03)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
+        },  
     },   
     milestones: {
         1: {
@@ -141,7 +162,18 @@ addLayer("l", {
             requirementDescription: "50 Living Keys",
             effectDescription: "Unlock Key Magic",
             done() { return player.l.points.gte(50) }
-        }
+        },
+        3: {
+            requirementDescription: "50,000 Living Keys",
+            effectDescription: "5x increase to earth magic gain, 1.5x increase to flame magic gain",
+            done() { return player.l.points.gte(50000) }
+        },
+        4: {
+            requirementDescription: "100,000,000 Living Keys",
+            effectDescription: "+1 repetition",
+            done() { return player.l.points.gte(100000000)},
+            onComplete() { player.r.points = player.r.points.add(1)}
+         },
         
     },
     challenges: {
@@ -153,14 +185,26 @@ addLayer("l", {
             canComplete: function() {return player.points.gte(18)},
             
         },
-        
+        12: {
+            name: "Lifeless",
+            challengeDescription: "Set living keys to 0. Earth magic is disabled and set to 0.",
+            goalDescription: "1e12 Compressed Keys",
+            rewardDescription: "Raises and multiplies living key gain (^1.15 & 1.45x)",
+            onEnter(){
+                player.l.points = player.l.points.mul(0)
+                player.m.earthMagic = player.m.earthMagic.mul(0)
+            },
+            canComplete: function() {return player.p.points.gte(1e12)},
+            
+        },
     }
+    
       
 })
 addLayer("m", {
     
     startData() { return {                  
-        unlocked: true,                     
+        unlocked: false,                     
         points: new Decimal(0),
         flameMagic: new Decimal(0),
         earthMagic: new Decimal(0),
@@ -195,10 +239,11 @@ addLayer("m", {
         11: {
             canClick() {return player.m.flameMagic.gte(20)},
             display() {
-                return "Fireball - Spend 20 Flame Magic to multiply your current amount of basic keys by 1.05" 
+                return "Fireball - Spend 20 Flame Magic to multiply your current amount of basic keys by " 
+                + format(player.points.pow(-0.001).add(0.12).add(player.m.points.div(500)))
             },
             onClick() {
-                 player.points = player.points.mul(1.05);
+                 player.points = player.points.mul(player.points.pow(-0.001).add(0.12).add(player.m.points.div(500)));
                  player.m.flameMagic = player.m.flameMagic.sub(20);
                  player.m.magicMastery = player.m.magicMastery.add(1);
             }
@@ -251,12 +296,33 @@ addLayer("m", {
         if (hasMilestone ('l', 2)) {
         flameMagicGain = new Decimal(0.1)
         flameMagicGain = flameMagicGain.times(player.m.points)
+        if (hasMilestone ('l',3)) flameMagicGain = flameMagicGain.times(1.5)
         player.m.flameMagic = player.m.flameMagic.add(flameMagicGain.times(diff));
         earthMagicGain = new Decimal(0.02)
         earthMagicGain = earthMagicGain.times(player.m.points)
+        if (hasMilestone ('l',3)) earthMagicGain = earthMagicGain.times(5)
+        if (inChallenge('l',12)) earthMagicGain = earthMagicGain.times(0)
         player.m.earthMagic = player.m.earthMagic.add(earthMagicGain.times(diff));
     }
-        if(player.m.magicTime.gt(0)) player.m.magicTime = player.m.magicTime.sub(diff).max(0)
+        
 }          
     
+})
+addLayer("r", {
+    startData() { return {                  
+        unlocked: true,                    
+        points: new Decimal(0),         
+    }},
+    color: "#4BDC13",                               
+    row: "side",
+    resource: "repetition",        
+    layerShown() {return true},          
+    milestones: {
+        1: {
+            requirementDescription: "1 repetition",
+            effectDescription: "Generate 12% of compressed keys per second",
+            done() { return player.r.points.gte(1) }
+        }
+        
+    }
 })
