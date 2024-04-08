@@ -172,7 +172,7 @@ addLayer("l", {
             requirementDescription: "100,000,000 Living Keys",
             effectDescription: "+1 repetition",
             done() { return player.l.points.gte(100000000)},
-            onComplete() { player.r.points = player.r.points.add(1)}
+            
          },
         
     },
@@ -308,21 +308,4 @@ addLayer("m", {
 }          
     
 })
-addLayer("r", {
-    startData() { return {                  
-        unlocked: true,                    
-        points: new Decimal(0),         
-    }},
-    color: "#4BDC13",                               
-    row: "side",
-    resource: "repetition",        
-    layerShown() {return true},          
-    milestones: {
-        1: {
-            requirementDescription: "1 repetition",
-            effectDescription: "Generate 12% of compressed keys per second",
-            done() { return player.r.points.gte(1) }
-        }
-        
-    }
-})
+
