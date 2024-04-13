@@ -21,6 +21,7 @@ addLayer("p", {
         if (hasUpgrade('l', 13)) mult = mult.times(upgradeEffect('l', 13))
         if (hasMilestone('l', 1)) mult = mult.times(1.15)
         if (inChallenge('l', 11)) mult = mult.times(0.1)
+        if (hasUpgrade('h', 12)) mult = mult.times(3)
         mult = mult.times(player.m.magicMastery.pow(0.3).add(1))
         return mult
     },
@@ -98,6 +99,7 @@ addLayer("l", {
         let mult = new Decimal(1)
         if (hasChallenge('l', 12)) mult = mult.times(1.45)
         if (hasUpgrade('l', 15)) mult = mult.times(upgradeEffect('l', 15))
+        if (hasChallenge('h', 13)) mult = mult.times(2)
         if (hasChallenge('l', 12)) mult = mult.pow(1.15)
         return mult
     },
@@ -151,6 +153,7 @@ addLayer("l", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" },
         },  
+        
     },   
     milestones: {
         1: {
@@ -169,10 +172,9 @@ addLayer("l", {
             done() { return player.l.points.gte(50000) }
         },
         4: {
-            requirementDescription: "100,000,000 Living Keys",
-            effectDescription: "+1 repetition",
-            done() { return player.l.points.gte(100000000)},
-            
+            requirementDescription: "300,000,000 Living Keys",
+            effectDescription: "Unlock Keys Of Honor",
+            done() { return player.l.points.gte(300000000)},
          },
         
     },
@@ -307,5 +309,52 @@ addLayer("m", {
         
 }          
     
+})
+
+addLayer("h", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+    }},
+
+    color: "#992B2B",                       // The color for this layer, which affects many elements.
+    resource: "Keys Of Honor",            // The name of this layer's main prestige resource.
+    row: 2,                                 // The row this layer is on (0 is the first row).
+
+    baseResource: "Living Keys",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.l.points },  // A function to return the current amount of baseResource.
+
+    requires: new Decimal(1e9),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+
+    type: "static",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.5,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return true },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    upgrades: {
+        11: {
+            title: "Honor Choice A1",
+            description: "Multiply your basic key gain by 4.",
+            cost: new Decimal(1),
+        },
+        12: {
+            title: "Honor Choice A2",
+            description: "Multiply your compressed key gain by 3.",
+            cost: new Decimal(1),
+        },
+        13: {
+            title: "Honor Choice A3",
+            description: "Multiply your living key gain by 2.",
+            cost: new Decimal(1),
+        },
+    },
 })
 
