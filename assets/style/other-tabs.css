@@ -1,0 +1,85 @@
+.hoverBox {
+	position: fixed;
+	top: 100vh;
+	left: 10px;
+	transform: translateY(calc(-100% - 10px));
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 5px;
+	display: flex;
+	flex-flow: row;
+}
+
+#optionWheel {
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
+
+#optionWheel:hover {
+	transform: rotate(1turn);
+}
+
+#info {
+	font-size: 20px;
+	color: white;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	margin-left: 5px;
+	transition-duration: .2s;
+}
+
+#info:hover {
+	scale: 1.1;
+}
+
+#discord {
+	width: 40px;
+	height: 40px;
+	margin-left: 5px;
+	transition-duration: .2s;
+}
+
+#discord:hover {
+	scale: 1.1;
+}
+
+#version {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	padding: 5px;
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 5px;
+}
+
+#version:hover {
+	scale: 1.1;
+}
+
+a {
+	color: #007fff;
+	text-decoration-line: none;
+	cursor: pointer
+}
+
+.link {
+	display: block;
+	font-size: 20px;
+	color: #41f5f5;
+	cursor: pointer;
+	font-family: "Sawarabi Mincho", monospace;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: #02f2f2;
+	text-decoration: none;
+}
+
+.link:hover {
+	transform: scale(1.2, 1.2);
+	text-shadow: 5px 0 10px #02f2f2,
+              -3px 0 12px #02f2f2;
+}

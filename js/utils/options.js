@@ -6,7 +6,7 @@ function getStartOptions() {
 	return {
 		autosave: true,
 		msDisplay: "always",
-		theme: "default",
+		theme: "reimu",
 		hqTree: false,
 		offlineProd: true,
 		hideChallenges: false,
@@ -16,7 +16,11 @@ function getStartOptions() {
 		tooltipForcing: true,
 	}
 }
-
+let notations = ['Scientific', 'Engineering', 'Standard']
+function changeNotation() {
+	player.notation = notations[(notations.indexOf(player.notation) + 1) % notations.length]
+	needCanvasUpdate = true;
+}
 function toggleOpt(name) {
 	if (name == "oldStyle" && styleCooldown > 0)
 		return;
@@ -53,6 +57,7 @@ const MS_SETTINGS = ["always", "last", "automation", "incomplete", "never"];
 function adjustMSDisp() {
 	options.msDisplay = MS_SETTINGS[(MS_SETTINGS.indexOf(options.msDisplay) + 1) % 5];
 }
+
 function milestoneShown(layer, id) {
 	complete = player[layer].milestones.includes(id);
 	auto = layers[layer].milestones[id].toggles;
