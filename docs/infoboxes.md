@@ -27,6 +27,6 @@ Features:
 
 - unlocked(): **optional**. A function returning a bool to determine if the infobox is visible or not. Default is unlocked.
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar
+- layer: **assigned automatically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar
 
-- id: **assigned automagically**. It's the "key" which the bar was stored under, for convenient access. The infobox in the example's id is "lore".
+- id: **assigned automatically**. It's the "key" which the bar was stored under, for convenient access. The infobox in the example's id is "lore".

@@ -43,9 +43,9 @@ Individual achievement can have these features:
 
 - textStyle: **optional**. Applies CSS to the text, in the form of an object where the keys are CSS attributes, and the values are the values for those attributes (both as strings).
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
+- layer: **assigned automatically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
 
-- id: **assigned automagically**. It's the "key" which the achievement was stored under, for convenient access. The achievement in the example's id is 11.
+- id: **assigned automatically**. It's the "key" which the achievement was stored under, for convenient access. The achievement in the example's id is 11.
 
 - goalTooltip: **optional, deprecated**. Appears when the achievement is hovered over and locked, overrides the basic tooltip. This is to display the goal (or a hint). It can also be a function that returns updating text. Can use basic HTML.
 
