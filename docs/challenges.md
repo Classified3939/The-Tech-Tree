@@ -60,9 +60,9 @@ Individual Challenges can have these features:
 
 - marked: **optional** Adds a mark to the corner of the challenge. If it's "true" it will be a star, but it can also be an image URL. By default, if the challenge has multiple completions, it will be starred at max completions.
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do player[this.layer].points or similar
+- layer: **assigned automatically**. It's the same value as the name of this layer, so you can do player[this.layer].points or similar
 
-- id: **assigned automagically**. It's the "key" which the challenge was stored under, for convenient access. The challenge in the example's id is 11.
+- id: **assigned automatically**. It's the "key" which the challenge was stored under, for convenient access. The challenge in the example's id is 11.
 
 
 

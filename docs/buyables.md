@@ -57,9 +57,9 @@ Features:
 
 - tooltip: **optional**. Adds a tooltip to this buyable, appears when it is hovered over. Can use basic HTML. Default is no tooltip. If this returns an empty value, that also disables the tooltip.
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
+- layer: **assigned automatically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
 
-- id: **assigned automagically**. It's the "key" which the buyable was stored under, for convenient access. The buyable in the example's id is 11.
+- id: **assigned automatically**. It's the "key" which the buyable was stored under, for convenient access. The buyable in the example's id is 11.
 
 Sell One/Sell All:
 

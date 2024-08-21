@@ -35,8 +35,8 @@ Milestone features:
 
 - tooltip: **optional**. Adds a tooltip to this milestone, appears when it is hovered over. Can use basic HTML. Default is no tooltip. If this returns an empty value, that also disables the tooltip.
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
+- layer: **assigned automatically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar.
 
-- id: **assigned automagically**. It's the "key" which the milestone was stored under, for convenient access. The milestone in the example's id is 0.
+- id: **assigned automatically**. It's the "key" which the milestone was stored under, for convenient access. The milestone in the example's id is 0.
 
 Disable milestone popups by adding `milestonePopups: false` to the layer.

@@ -6,7 +6,7 @@ You can make almost any value dynamic by using a function in its place, includin
 
 ## Layer Definition features
 
-- layer: **assigned automagically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar to access the saved value. It makes copying code to new layers easier. It is also assigned to all upgrades and buyables and such.
+- layer: **assigned automatically**. It's the same value as the name of this layer, so you can do `player[this.layer].points` or similar to access the saved value. It makes copying code to new layers easier. It is also assigned to all upgrades and buyables and such.
 
 - name: **optional**. used in reset confirmations (and the default infobox title). If absent, it just uses the layer's id.
 
